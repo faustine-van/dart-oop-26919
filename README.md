@@ -59,3 +59,34 @@ Student card: 19% off
 | 4 | `@override` on `void restart()` | `@override` only works when the parent class has the same method. `Phone` has no `restart`, so `restart` is not really an override. | Remove `@override` from `restart()`. |
 | 5 | `p.battery = 100;` | The class only has a getter for `battery`, no setter. So you cannot assign a value to it from outside. | Add `set battery(int newBattery)` that only accepts values from 0 to 100. |
 | Not a bug | `p.battery = 100;` | This line looks wrong because it looks like it is setting a private field directly. But it is fine — it calls the public setter we added, which checks the value is between 0 and 100. So it is valid. | (none) |
+
+## Part 5
+
+My prediction:
+```
+1
+5
+```
+
+Real output:
+
+```
+1
+5
+```
+
+Why:
+
+- `Bag a = Bag()` starts with `_items = 0`.
+- `a.add()` → `_items = 0 + 1 = 1`.
+- `a.items = -5` → the setter only accepts values `>= 0`, so `-5` is refused and `_items` stays `1`.
+- `print(a.items)` → prints **1**.
+
+- `BigBag b = BigBag()` starts with `_items = 0`.
+- `b.add()` → `BigBag.add()` calls `super.add()` twice → `0 → 1 → 2`.
+- `b.add()` again → `2 → 3 → 4`.
+- `b.items = b.items + 1` → `4 + 1 = 5`, the setter accepts it (`5 >= 0`).
+- `print(b.items)` → prints **5**.
+
+Was I right? Yes, my prediction was correct. I predicted `1` and `5`, and the real output is exactly `1` and `5`.
+
