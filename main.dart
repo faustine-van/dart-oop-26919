@@ -57,3 +57,59 @@ class BusCard {
     }
   }
 }
+
+class StudentCard extends BusCard {
+  int _discount = 0;
+  // Constructor (done for you)
+  // ": super(owner, balance)" builds the parent BusCard first
+  StudentCard(String owner, int balance, int discount) : super(owner, balance) {
+    _discount = discount;
+  }
+  // EXAMPLE: override showInfo (done for you)
+  @override
+  void showInfo() {
+    super.showInfo(); // run the parent's showInfo first
+    print('Student card: $_discount% off');
+  }
+
+  // TODO 4: override pay(int fare)
+  // Step 1: work out the discount: int off = fare * _discount ~/ 100;
+  // Step 2: print 'Student discount: <off> RWF'
+  // Step 3: call the PARENT's pay with (fare - off)
+  // Hint: look at how showInfo above uses @override and super.
+  @override
+  void pay(int fare) {
+    int off = fare * _discount ~/ 100;
+    print('Student discount: $off RWF');
+    super.pay(fare - off);
+  }
+}
+
+void main() {
+  // My numbers: D = 19, L = 9
+  // Starting balance = 1190 RWF, Bus fare = 219 RWF, Discount = 19%
+  // EXAMPLE (done for you): create a card and test the setter
+
+  BusCard card = BusCard(
+    'MUHAYEMARIYA Faustine',
+    1190,
+  ); // TODO: use YOUR name and YOURstarting balance
+  card.owner = 'Al'; // refused: name too short
+  card.showInfo();
+  // TODO 5: change the owner to your full name, then call showInfo()
+  card.owner = 'MUHAYEMARIYA Faustine';
+  card.showInfo();
+  // TODO 6: top up 100 RWF (must be refused), then top up 2000 RWF
+  card.topUp(100);
+  card.topUp(2000);
+  // TODO 7: pay your bus fare 2 times, then call showInfo()
+  card.pay(219);
+  card.pay(219);
+  card.showInfo();
+  // TODO 8: create a StudentCard with your name, starting balance anddiscount
+  StudentCard studentCard = StudentCard('MUHAYEMARIYA Faustine', 1190, 19);
+
+  // TODO 9: pay your bus fare with the student card, then call showInfo()
+  studentCard.pay(219);
+  studentCard.showInfo();
+}
