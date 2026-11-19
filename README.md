@@ -67,14 +67,6 @@ My prediction:
 1
 5
 ```
-
-Real output:
-
-```
-1
-5
-```
-
 Why:
 
 - `Bag a = Bag()` starts with `_items = 0`.
@@ -87,6 +79,13 @@ Why:
 - `b.add()` again → `2 → 3 → 4`.
 - `b.items = b.items + 1` → `4 + 1 = 5`, the setter accepts it (`5 >= 0`).
 - `print(b.items)` → prints **5**.
+
+Real output:
+
+```
+1
+5
+```
 
 Was I right? Yes, my prediction was correct. I predicted `1` and `5`, and the real output is exactly `1` and `5`.
 
